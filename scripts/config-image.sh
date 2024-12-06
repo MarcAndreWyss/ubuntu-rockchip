@@ -157,6 +157,9 @@ else
     chroot ${chroot_dir} apt-mark hold "$(echo "${linux_rockchip_headers_package}" | sed -rn 's/(.*)_[[:digit:]].*/\1/p')"
 fi
 
+# Deactivate the Qualcomm PD mapper service, because we are on a Rockchip.
+chroot ${chroot_dir} systemctl disable pd-mapper.service
+
 # Update the initramfs
 chroot ${chroot_dir} update-initramfs -u
 
